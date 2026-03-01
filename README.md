@@ -59,6 +59,7 @@ $$
 100 \to 50 \to 25 \to 12.5 \to\dots
 $$
 很明显就是一个等比数列，让$a_{n}$为第n次弹起后的高度$n>1$
+
 $$
 a_{n} = 100\times \left(\frac{1}{2}\right)^{n}
 $$
@@ -69,14 +70,19 @@ $$
 | --- | --- | ------------- |
 | 1   | 300 | $+2\times50$  |
 | 2   | 350 | $+2\times25$  |
+
 $$
 D_{n}+100 = 2a_{1} + 2a_{2} +\dots + 2a_{n} =2S_{n}
 $$
+
 根据等比数列和公式
+
 $$
 S_{n} = \frac{100\left( 1-\left( \frac{1}{2} \right)^{n} \right)}{1-\frac{1}{2}} =200\left( 1-\left( \frac{1}{2} \right)^{n} \right) = 200-200\left( \frac{1}{2} \right)^{n}
 $$
+
 代入
+
 $$
 D_{n} = 300-400\left( \frac{1}{2} \right)^{n}
 $$
