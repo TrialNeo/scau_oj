@@ -6,7 +6,7 @@ char checkNumCh(char ch) {
     return ch >= '0' && ch <= '9' ? 1 : 0;
 }
 
-void c18045() {
+int main() {
     char c = getchar();
     if (checkNumCh(c)) {
         if (checkNumCh(c - 1)) {

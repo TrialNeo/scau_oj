@@ -36,12 +36,15 @@ int main(int argc, char *argv[]) {
         for (int j = 0; j < 3; ++j) {
             if (matrix[i][max_column_index] > matrix[j][max_column_index]) {
                 hasSaddlePoint = 0;
+                break;
             }
         }
         if (hasSaddlePoint) {
             printf("%d", matrix[i][max_column_index]);
-            return 0;
+            break;
         }
     }
-    printf("NO");
+    if (!hasSaddlePoint) {
+        printf("NO");
+    }
 }

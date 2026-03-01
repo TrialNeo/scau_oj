@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     scanf("%d%d", &m,&n);
     for (int x = 0; x < n; ++x) {
         for (int y = 0; y < n; ++y) {
-            if (5*x+3*y == 2*m-n && n-x-y > 0) {
+            if (5*x+3*y == 2*m-n && n-x-y >= 0) {
                 count++;
             }
         }

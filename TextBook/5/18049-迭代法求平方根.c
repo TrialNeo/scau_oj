@@ -4,7 +4,7 @@
 #include <math.h>
 #include <stdio.h>
 
-int c18049(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     double x_np1 = 0,
             x_n = 0; //这个初始化可以随便的，根据但是取哪个值收敛得最快呢？？
     const double epsilon = 1e-5;

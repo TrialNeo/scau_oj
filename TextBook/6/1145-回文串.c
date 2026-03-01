@@ -31,7 +31,6 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
-    //这次用堆栈的思想hh
     char str[255];
     gets(str);
     int len = strlen(str);

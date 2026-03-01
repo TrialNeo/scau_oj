@@ -13,7 +13,7 @@ static inline double TriangleArea(const struct Point A, const struct Point B, co
     return area;
 }
 
-void c1153() {
+int main() {
     int n = 0;
     scanf("%d", &n);
     struct Point points[n];
