@@ -104,6 +104,9 @@ bool link_insert_with_sort(link L, const int data) {
 
 //删除指定index的节点
 bool link_del(link L,int index) {
+    if (index < 1) {
+        return false;
+    }
     if (L->next == NULL) {
         return false;
     }
@@ -138,9 +141,12 @@ bool link_sort(link *L) {
     if (new ==NULL) {
         return false;
     }
-    link p = (*L)->next;
+    link p = (*L)->next
+    ,q = NULL;
     while (p!=NULL) {
         link_insert_with_sort(new, p->data);
+        q = p;
+        free(q);
         p = p->next;
     }
     free(*L);
