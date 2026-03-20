@@ -6,6 +6,9 @@
 #include "menu/menu.h"
 #include <stdbool.h>
 int main() {
+
+
+
     char op = 0;
     while (true) {
         menu_welcome();
@@ -13,6 +16,7 @@ int main() {
         op  = getchar();
 
         switch (op) {
+
             case 0:
                 return 0;
             default:
