@@ -4,4 +4,5 @@
 #ifndef PBM_SYSTEM_H
 #define PBM_SYSTEM_H
 void system_init();
+void system_cls();
 #endif // PBM_SYSTEM_H

@@ -3,10 +3,17 @@
 
 
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "../admin/login.h"
+#include "../database/belong.h"
+
+// 清屏
+void system_cls() { system("cls"); }
 
 //检测登录，初始化密码相关
 void system_user_init() {
+    system_cls();
     if (!password_check_set()) {
         printf("因为您是第一次使用，请先设置密码：");
         char password[255] = {0} ;
@@ -30,4 +37,5 @@ void system_user_init() {
 //系统初始化，用于读取配置，数据相关
 void system_init(){
     system_user_init();
+    belong_init();
 }

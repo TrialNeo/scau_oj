@@ -35,6 +35,14 @@ item,item
 item2,item2
 ````
 
+这个其实也不太好用，其实利用tlv更加适合计算机,t这里可以做一下精简只用一个字节来存
+
+我们可以稍稍魔改一下，因为本身需要用到的类型也就string,unsigned long,bool这几个，顶天了也就用到一个字，但是另一个字不就浪费了吗，而且len一般是用两个字节的。
+
+这可不行，可以在type这里拿一个字存一下下面的len是两个字节还是一个字节还是根本就用不上，这就是时间复杂度换空间复杂度了，但是毕竟是持久化存储嘛还是值得的。
+
+
+
 
 
 ## 登录方面
@@ -76,3 +84,7 @@ cmake --build .
 - Handbook of applied cryptography (Alfred Menezes, Paul van Oorschot etc.)
 - [CMAKE学习——编译多个文件 & 多个目录_多文件夹编译cmake-CSDN博客](https://blog.csdn.net/dyyzlzc/article/details/105189374)
 - [C语言下的清屏函数_#ifdef to gt checkdensityto fill = density to >0-CSDN博客](https://blog.csdn.net/lopper/article/details/5062960)
+- [什么是TLV格式？TLV编码格式解析：一种灵活可扩展的自定义网络/串口/总线通信协议，数据表示方式在现代计算和通信系统中 - 掘金](https://juejin.cn/post/7499013941126168576)
+
+
+
