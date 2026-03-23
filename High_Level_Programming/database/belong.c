@@ -146,6 +146,9 @@ void belong_init() {
     unsigned len = 0, len_read = 0, offset = 0;
     // 读取持久化配置
     data_load(&buffer, &len);
+    if (len == 0) {
+        return;
+    }
 
     unsigned size = tlv_decode_uint(buffer, &len_read);
     bytes buffer_read = 0;

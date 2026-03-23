@@ -5,39 +5,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "../utils/crypto.h"
+
 
 const char file_crypto_key[16] = {16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-
-
-// 记得调用之后释放内存
 void data_load(bytes *buffer, unsigned *size) {
     FILE *file = fopen("./data", "rb");
-    // 加密的，先解密一下
-    fseek(file, 0, SEEK_END);
-    *size = ftell(file);
-    rewind(file);
-    unsigned len = 0;
-    bytes paint_text_buffer = malloc(*size);
+    if (file != NULL) {
+        fseek(file, 0, SEEK_END);
+        unsigned len = ftell(file);
+        rewind(file);
+        bytes paint_text_buffer = malloc(len);
+        fread(paint_text_buffer, len, 1, file);
+        // 文件解密
+        decrypt(file_crypto_key, (char *) paint_text_buffer, len, (char **) buffer, size);
 
-    fread(paint_text_buffer, *size, 1, file);
-    // 文件解密
-    //  if (decrypt(file_crypto_key, paint_text_buffer, size, &buffer, &len)) {
-    //  }
-    //  free(paint_text_buffer);
-    *buffer = paint_text_buffer;
-    fclose(file);
+
+        free(paint_text_buffer);
+        fclose(file);
+
+    }
 }
 
 
+// 记得调用之后释放buffer的内存
 void data_rewrite(const bytes buffer, unsigned size) {
     FILE *fp = fopen("./data", "wb");
-
     // for (unsigned i = 0;i<size;i++) {
     //     printf("%02X ",buffer[i]);
     // }
     // putchar('\n');
-    fwrite(buffer, size, 1, fp);
-    fclose(fp);
+    char *_buffer = 0;
+    unsigned len = 0;
+    if (encrypt(file_crypto_key, buffer, size, &_buffer, &len)) {
+        fwrite(_buffer, len, 1, fp);
+        fclose(fp);
+        free(_buffer);
+    }
 }
 
 

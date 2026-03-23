@@ -4,6 +4,6 @@
 #ifndef crypto
 #define crypto
 #include <stdbool.h>
-bool decrypt(const char key_buffer[16],const char *paint_text_buffer, unsigned text_len,char **buffer,unsigned *len);
+bool decrypt(const char key_buffer[16],const char *paint_text_buffer, unsigned text_len, char **buffer,unsigned *len);
 bool encrypt(const char key_buffer[16],const char *paint_text_buffer, unsigned text_len,char **buffer,unsigned *len);
 #endif
