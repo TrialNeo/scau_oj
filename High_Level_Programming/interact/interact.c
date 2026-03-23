@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "../../../../IDE/CLion/bin/mingw/x86_64-w64-mingw32/include/string.h"
+#include "string.h"
 #include "../database/belong.h"
 #include "../system/system.h"
 #include "menu.h"

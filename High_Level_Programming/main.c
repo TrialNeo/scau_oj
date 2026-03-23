@@ -7,9 +7,6 @@
 
 
 int main() {
-    system_init();
-
-    interact();
-
-
+    system_init(); //某些系统设置，数据文件的加载
+    interact(); //交互
 }
