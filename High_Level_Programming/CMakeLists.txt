@@ -1,8 +1,0 @@
-cmake_minimum_required(VERSION 3.10)
-project(PBM)
-aux_source_directory(./interact INTERACT_LIST)
-aux_source_directory(./admin ADMIN_LIST)
-aux_source_directory(./utils UTILS_LIST)
-aux_source_directory(./system SYSTEM_LIST)
-aux_source_directory(./database DB_LIST)
-add_executable(PBM main.c ${DB_LIST} ${INTERACT_LIST} ${ADMIN_LIST} ${UTILS_LIST} ${SYSTEM_LIST})
