@@ -25,12 +25,12 @@ LOGIN_STATUS password_login(const char *password) {
         return ERROR;
     }
     FILE * file =  fopen("./password","rb"); //这个反正不是很满意
-    fseek(file, 0, SEEK_END);
-    unsigned len2 = ftell(file);
-    rewind(file);
     if (file==NULL) {
         return PASSWORD_UNSET;
     }
+    fseek(file, 0, SEEK_END);
+    unsigned len2 = ftell(file);
+    rewind(file);
     char * tmp = malloc(len2 * sizeof(char));
     fread(tmp,len2,1,file);
     //对比，由于好像没有api，直接来做吧，，
