@@ -16,6 +16,17 @@ void system_pause() {
     system("pause");
 }
 
+//询问
+void system_ask(const char * msg) {
+    printf("+ %s:",msg);
+}
+
+//系统提示
+void system_tip(const char * msg) {
+    printf("- %s\n",msg);
+}
+
+
 //检测登录，初始化密码相关
 void system_user_init() {
     system_cls();

@@ -6,4 +6,6 @@
 void system_init();
 void system_cls();
 void system_pause();
+void system_tip(const char * msg);
+void system_ask(const char * msg);
 #endif // PBM_SYSTEM_H
