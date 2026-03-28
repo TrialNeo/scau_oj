@@ -61,7 +61,7 @@ bool link_insert_with_sort(link L, const belong data) {
     }
     node->next = p->next;
     node->data = malloc(sizeof(belong));
-    node->data->id = m_size++;
+    node->data->id = ++m_size;
     strcpy(node->data->name, data.name);
     strcpy(node->data->desc, data.desc);
     node->data->create_stamp = data.create_stamp;
@@ -104,16 +104,13 @@ void belong_save() {
     tlv_encode_uint(&buffer, &len_written, m_size);
     memmove(w_buffer, buffer, len_written);
     offset = len_written;
-
     free(buffer);
-
 
     while (p != NULL) {
         tlv_encode_uint(&buffer, &len_written, p->data->id);
         memmove(w_buffer + offset, buffer, len_written);
         free(buffer);
         offset += len_written;
-
 
         tlv_encode_uint(&buffer, &len_written, p->data->create_stamp);
         memmove(w_buffer + offset, buffer, len_written);
@@ -144,10 +141,10 @@ void belong_save() {
 void belong_init() {
     belongs = link_init(0);
     bytes buffer = 0;
-    unsigned len = 0, len_read = 0, offset = 0;
+    unsigned block_size = 0, len_read = 0, buffer_len = 0, offset = 0;
     // 读取持久化配置
-    data_load(&buffer, &len);
-    if (len == 0) {
+    data_load(&buffer, &block_size);
+    if (block_size == 0) {
         return;
     }
 
@@ -157,22 +154,23 @@ void belong_init() {
 
 
     for (unsigned i = 0; i < size; i++) {
-        belong data;
+        belong data = {0};
+
         data.id = tlv_decode_uint(buffer + offset, &len_read);
         offset += len_read;
 
         data.create_stamp = tlv_decode_uint(buffer + offset, &len_read);
         offset += len_read;
 
-        tlv_decode_bytes(buffer + offset, &buffer_read, &len_read);
-        memcpy(data.name, buffer_read, len_read);
+        tlv_decode_bytes(buffer + offset, &buffer_read, &len_read, &buffer_len);
+        memcpy(data.name, buffer_read, buffer_len);
         free(buffer_read);
-
         offset += len_read;
 
 
-        tlv_decode_bytes(buffer + offset, &buffer_read, &len_read);
-        memcpy(&data.desc, buffer_read, len_read);
+        tlv_decode_bytes(buffer + offset, &buffer_read, &len_read, &buffer_len);
+        memcpy(&data.desc, buffer_read, buffer_len);
+        // print_buffer(buffer_read,buffer_len);
         free(buffer_read);
         offset += len_read;
 
@@ -188,6 +186,29 @@ void belong_unin() { link_free(belongs); }
 // 录入新的物品
 bool belong_add(const belong data) { return link_insert_with_sort(belongs, data); }
 
+// 根据指定的名称或者id删除物品信息，删除成功后返回删除了的物品信息
+bool belong_del(const unsigned id, const char *name, belong *deled) {
+    // 根据id或者名称查找,因为这个接口是只能传一个进来,便于维护
+    link p = belongs, nxt;
+    while ((nxt = p->next) != NULL) {
+        if (nxt->data->id == id && id > 0 || name != NULL && !strcmp(nxt->data->name, name)) {
+            // 这是要删除的，先备份一下
+            deled->id = nxt->data->id;
+            strcpy(deled->name, nxt->data->name);
+            strcpy(deled->desc, nxt->data->desc);
+            deled->create_stamp = nxt->data->create_stamp;
+            p->next = nxt->next;
+            // 释放内存
+            free(nxt->data);
+            free(nxt);
+            m_size--;
+            return true;
+        }
+    }
+    return false;
+}
+
+
 // 按照一定格式打印物品，顺序为%s%s%d=>name desc time
 void belong_print(belong_query_callback callback) {
     link p = belongs->next;
@@ -200,6 +221,9 @@ void belong_print(belong_query_callback callback) {
 
 // 通过cosine similarity算法进行模糊搜索
 void belong_fuzzy_search(const char *name, belong_query_callback callback) {
+    if (m_size == 0) {
+        return;
+    }
     // 相似度最大值
     static const float SIMILARITY_THRESHOLD = 0.3;
 
@@ -244,4 +268,27 @@ void belong_fuzzy_search(const char *name, belong_query_callback callback) {
     }
     // 释放内存
     free(items);
+}
+
+// 进行修改
+bool belong_modify(unsigned id, const char *name, const char *desc) {
+    if (id == 0) {
+        return false;
+    }
+    link p = belongs->next;
+    // 先进性查找
+    while (p != NULL) {
+        if (p->data->id == id) {
+            // 将非空的进行修改
+            if (name != NULL) {
+                strcpy(p->data->name, name);
+            }
+            if (desc != NULL) {
+                strcpy(p->data->desc, desc);
+            }
+            return true;
+        }
+        p = p->next;
+    }
+    return false;
 }
