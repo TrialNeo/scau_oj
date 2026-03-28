@@ -59,11 +59,11 @@ void interact_modify() {}
 void interact_del() {
     system_cls();
     system_tip("1.通过ID删除\t2.通过完整名称删除");
-
+    system_split();
     system_ask("请选择您的操作序号");
     unsigned id = 0;
     char str[255] = {0};
-    switch (system_get_op_id()) {
+    switch (system_get_op_id(0,2)) {
         case 1:
             system_ask("请输入要删除的物品ID");
             scanf(" %d", &id);
@@ -79,8 +79,8 @@ void interact_del() {
         system_cls();
         belong b = {0};
         if (belong_del(id, str, &b)) {
-            char s[255]  = {0};
-            sprintf(s,"物品[%s]已被删除",b.name);
+            char s[255] = {0};
+            sprintf(s, "物品[%s]已被删除", b.name);
             system_tip(s);
         } else {
             system_tip("删除失败!请检查输入信息是否正确~");
@@ -113,10 +113,7 @@ void interact_fuzzy_search() {
     system_tip("0.返回上一步");
     system_ask("请输入功能编号");
     unsigned op = 0;
-    do {
-        scanf("%u", &op);
-
-    } while (op != 0 && op != 1 && op != 2);
+    op = system_get_op_id(0,2);
     switch (op) {
         case 0:
             system_cls();
@@ -141,7 +138,7 @@ void interact() {
         system_cls();
         menu_welcome();
         printf("请输入您的功能编号:");
-        scanf("%d", &op);
+        op = system_get_op_id(0,6);
         switch (op) {
             case 1:
                 interact_query();

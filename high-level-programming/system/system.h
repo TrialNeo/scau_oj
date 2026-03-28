@@ -9,5 +9,5 @@ void system_pause();
 void system_tip(const char * msg);
 void system_ask(const char * msg);
 void system_split();
-unsigned system_get_op_id();
+unsigned system_get_op_id(unsigned min, unsigned max);
 #endif // PBM_SYSTEM_H
