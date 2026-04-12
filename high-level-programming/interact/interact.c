@@ -63,7 +63,7 @@ void interact_modify() {
     system_fun_start();
     system_tip("输入\"0\"可返回上一步");
     system_split();
-    system_ask("请输入需要删除的物品ID");
+    system_ask("请输入需要修改的物品ID");
 
     unsigned id = 0;
     scanf(" %u", &id);
