@@ -3,6 +3,11 @@
 .idea
 cmake-build-debug
 CMakeLists.txt
+/.vscode
+/.vs
+CppPropeties.json
+/.obsidian
+
 
 #c
 /online-judge/c/.clang-tidy
