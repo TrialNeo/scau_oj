@@ -1,2 +1,0 @@
-
-    unsigned n = 0;
