@@ -1,13 +1,37 @@
-#include <iostream>
+// 填空题来的
+
+#include <queue>
+#include <stdio.h>
 using namespace std;
-
-int main(int argc, char const *argv[]) {
-    cin.tie(0);
-    ios::sync_with_stdio(false);
-
-    return 0;
+typedef struct {
+    int r; // row
+    int c; // column
+    int s; // step
+} LOC;
+int sr, sc, dr, dc;
+int dir[4][2] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+char d[100][100];
+void solve() {
+    int m, n, i, nr, nc;
+    queue<LOC> q;
+    scanf("%d%d", &m, &n);
+    for (i = 0; i < m; i++)
+        scanf("%s", d[i]);
+    scanf("%d%d%d%d", &sr, &sc, &dr, &dc);
+    LOC first = {sr, sc, 0};
+    q.push(first);
+    while (!q.empty()) {
+        // 填这个位置
+        
+    }
+    printf("die\n");
 }
-
+int main() {
+    int n;
+    scanf("%d", &n);
+    while (n--)
+        solve();
+}
 
 /*
 输入格式
