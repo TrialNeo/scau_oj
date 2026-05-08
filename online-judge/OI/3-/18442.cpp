@@ -3,17 +3,28 @@
 
 #include <algorithm>
 #include <cstdio>
-#include <numeric>
 #include <vector>
 using namespace std;
 
+unsigned solve(unsigned n, unsigned head, unsigned delta) {
+    if (n == 3) {
+        return 0;
+    }
+    if (n < 3) {
+        return head;
+    }
 
+    unsigned a = solve((n + 1) / 2, head, delta * 2); // 去除偶数之后不影响head
+    unsigned b =
+            solve(n / 2, head + delta, delta * 2); // 去除基数之后会对head产生影响，下一次要选的应该是偶数堆里面的第一个
+    return (a && b) ? min(a, b) : a | b;
+}
 
 
 int main() {
     unsigned n = 0;
     while (scanf("%u", &n) && n) {
-        printf("%u\n", find_min_id_solid(n));
+        printf("%u\n", solve(n, 1, 1));
     }
     return 0;
 }

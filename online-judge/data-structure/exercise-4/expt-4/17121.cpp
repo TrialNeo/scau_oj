@@ -31,19 +31,19 @@ Status CreateBiTree(BiTree &T) { // 算法6.4
     return OK;
 } // CreateBiTree
 
-
 // 三个可以一起来看，还是倾向于用队列做一个广度优先，算了他不给用 直接递归吧，深度优先也可
 // 然后我们直接统计度为0/1/2 中的其中一个就行了,有公式可以算另外两个
 // n = n0 + n1 + n2
 // n0 = n2 + 1
-unsigned count(BiTree &T, unsigned &total) {
-    if (T != NULL) {
+unsigned count_dg0(BiTree &T, unsigned &total) {
+    if (T == NULL) {
         return 0;
     }
-    if (!T->rchild && !T->rchild) {
-        return 1;
+    total++;
+    if (!T->lchild && !T->rchild) {
+        return 1 + count_dg0(T->lchild, total) + count_dg0(T->rchild, total);
     }
-    return 0;
+    return count_dg0(T->lchild, total) + count_dg0(T->rchild, total);
 }
 
 
@@ -51,6 +51,8 @@ int main() // 主函数
 {
     BiTree T;
     CreateBiTree(T);
-    unsigned total = count(Ttotal);
-
+    unsigned total = 0, n0 = count_dg0(T, total), n2 = n0 - 1, n1 = total - n0 - n2;
+    printf("%u\n", n2);
+    printf("%u\n", n1);
+    printf("%u\n", n0);
 } // main

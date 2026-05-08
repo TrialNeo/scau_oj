@@ -1,9 +1,30 @@
 // Created by Github@TrialNeo(shenpanpro@gmail.com)
 // Created Time 2026/4/28 13:10.
+#include <algorithm>
+#include <iostream>
+using namespace std;
 
 
+bool check(unsigned n, unsigned x) {
+    if (n == 3) {
+        return true;
+    } else if (n < 3) {
+        return false;
+    }
+    // 看看是奇数堆的还是偶数堆的人，奇数堆的就
+    if (x % 2) {
+        return check((n + 1) / 2, (x + 1) / 2);
+    } else {
+        return check(n / 2, x / 2);
+    }
+}
 
-//这是数学问题来的，和哪个j
+int main() {
+    unsigned n = 0, x = 0;
+    while (scanf("%u%u", &n, &x) && n && x) {
+        puts(check(n, x) ? "Y" : "N");
+    };
+}
 
 
 /*
