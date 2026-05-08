@@ -29,8 +29,9 @@ int maxSubArraySum(const std::vector<int> &arr, int low, int high) {
         return arr[low];
     }
     int mid = (low + high) / 2;
-    int leftMax = maxSubArraySum(arr, low, mid), rightMax = maxSubArraySum(mid, high),
-        crossMax = maxCrossingSum(arr, low,mid, high);
+    int leftMax = maxSubArraySum(arr, low, mid);
+    int rightMax = maxSubArraySum(arr, mid + 1, high);
+    int crossMax = maxCrossingSum(arr, low, mid, high);
     return std::max({leftMax, rightMax, crossMax});
 }
 int main() {
