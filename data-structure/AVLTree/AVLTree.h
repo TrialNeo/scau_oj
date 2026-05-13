@@ -1,4 +1,5 @@
 #ifndef AVLTree
+
 #include <algorithm>
 #include <vector>
 using namespace std;
@@ -28,6 +29,7 @@ public:
     // -------------------------华丽的分割线-------------------------------------
 
     bool search(int key);
+    bool del(int key);
     // -------------------------随便的分割线-------------------------------------
     unsigned count_leaves();
     void mirror();
@@ -46,4 +48,5 @@ private:
     void re_BF(AVLNode &node);
     bool insert(int key);
 };
+
 #endif
