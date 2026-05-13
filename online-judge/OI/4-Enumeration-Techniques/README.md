@@ -107,3 +107,9 @@ int main() {
     }
 }
 ```
+## 3 8623 long long
+这个题目太有意思了，说明书肯定不是老师写的
+$$
+	res = \sum_{k=1}^{n} \left( \frac{n}{k} \right)
+$$
+ 
