@@ -41,7 +41,7 @@ private:
     AVLNode rotate_left(const AVLNode &broken);
     AVLNode rotate_left_right(const AVLNode &broken);
     AVLNode rotate_right_left(const AVLNode &broken);
-    void _traversal_preorder_impl(const AVLNode &root, vector<int> &arr);
+
     void re_BF(AVLNode &node);
     bool insert(int key);
 };

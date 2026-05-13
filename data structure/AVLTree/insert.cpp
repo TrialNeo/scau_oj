@@ -49,7 +49,7 @@ AVLTree::AVLNode AVLTree::rotate_left_right(const AVLTree::AVLNode &broken) {
         return nullptr;
     }
     broken->right = rotate_left(broken);
-    return rotate_right(root);
+    return rotate_right(this->root);
 }
 
 // LR-type
@@ -84,7 +84,7 @@ void AVLTree::re_BF(AVLNode &node) {
         }
         // 向上更新父节点
         if (!node->parent) {
-            root = node; // 更新root
+            this->root = node; // 更新root
         }
         node = node->parent;
     }
@@ -92,11 +92,11 @@ void AVLTree::re_BF(AVLNode &node) {
 
 // 插入操作
 bool AVLTree::insert(int key) {
-    if (root == nullptr) {
-        root = new Node(key);
+    if (!this->root) {
+        this->root = new Node(key);
         return;
     }
-    AVLNode node = new Node(key), curr = root, p = nullptr;
+    AVLNode node = new Node(key), curr = this->root, p = nullptr;
 
     // 找到插入位置
     while (curr) {
@@ -112,18 +112,17 @@ bool AVLTree::insert(int key) {
     }
 
     // 创建新节点
-    AVLNode newNode = new Node(key);
-    newNode->parent = p;
+    AVLNode new_node = new Node(key);
+    new_node->parent = p;
 
     if (key < p->key) {
-        p->left = newNode;
+        p->left = new_node;
     } else {
-        p->right = newNode;
+        p->right = new_node;
     }
 
     // 插入后沿父节点向上更新balance factor
-    re_BF(newNode);
+    re_BF(new_node);
 
     return true;
 }
-
