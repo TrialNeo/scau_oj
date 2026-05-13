@@ -1,3 +1,4 @@
+#include <queue>
 #include <vector>
 #include "AVLTree.h"
 
@@ -52,4 +53,29 @@ void _traversal_post_impl(const AVLTree::AVLNode &root, vector<int> &arr) {
     _traversal_post_impl(root->left, arr);
     _traversal_post_impl(root->right, arr);
     arr.push_back(root->key);
+}
+
+
+// 层次遍历，借助队列
+vector<int> AVLTree::traversal_level() {
+    if (this->root == nullptr) {
+        return ;
+    }
+    vector<int> arr;
+    queue<AVLNode> q;
+    q.push(this->root);
+
+    while (!q.empty()) {
+        AVLNode curr = q.front();
+        q.pop();
+        arr.push_back(curr->key);
+        if (curr->left != nullptr) {
+            q.push(curr->left);
+        }
+        if (curr->right != nullptr) {
+            q.push(curr->right);
+        }
+    }
+
+    return arr;
 }

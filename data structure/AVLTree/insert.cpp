@@ -126,3 +126,4 @@ bool AVLTree::insert(int key) {
 
     return true;
 }
+

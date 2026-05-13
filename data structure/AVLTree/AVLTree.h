@@ -19,10 +19,19 @@ public:
     vector<int> traversal_preorder(); // 基于递归的先序遍历
     vector<int> traversal_in(); // 基于递归的中序遍历
     vector<int> traversal_post(); // 基于递归的后序遍历
+
+    vector<int> traversal_level(); // 基于队列的层次遍历
+
     vector<int> traversal_preorder_s(); // 基于栈的先序遍历
     vector<int> traversal_in_s(); // 基于栈的中序遍历
     vector<int> traversal_post_s(); // 基于栈的后序遍历
     // -------------------------华丽的分割线-------------------------------------
+
+    bool search(int key);
+    // -------------------------随便的分割线-------------------------------------
+    unsigned count_leaves();
+    // -------------------------简单的分割线-------------------------------------
+
     AVLTree() : root(nullptr) {}
 
 
