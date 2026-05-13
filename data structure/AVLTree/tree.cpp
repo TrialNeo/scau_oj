@@ -25,3 +25,20 @@ unsigned AVLTree::count_leaves() {
     }
     return count;
 }
+
+
+// （6） 交换各结点的左右子树 应该说的是取一个镜像树，但是会破坏原来结构的，破坏就破坏吧
+void AVLTree::mirror() { _mirror_imp(this->root); }
+
+
+AVLTree::AVLNode _mirror_imp(AVLTree::AVLNode &root) {
+    if (!root) {
+        return;
+    }
+    AVLTree::AVLNode t = root->left;
+    root->left = root->right;
+    root->right = t;
+    _mirror_imp(root->left);
+    _mirror_imp(root->right);
+    return root;
+}
